@@ -32,7 +32,7 @@ func RevertMap(sourceMap map[string]string) (map[string]string, error) {
 	return result, nil
 }
 
-var hardcodedSet = map[string]bool{"value1": true, "value2": true}
+var hardcodedSet = map[string]struct{}{"value1": {}, "value2": {}}
 
 func Filter(slice []string) ([]string, error) {
 	if slice == nil {
@@ -40,7 +40,8 @@ func Filter(slice []string) ([]string, error) {
 	}
 	var result = make([]string, 0)
 	for i := 0; i < len(slice); i++ {
-		if hardcodedSet[slice[i]] == true {
+
+		if _, exists := hardcodedSet[slice[i]]; exists {
 			result = append(result, slice[i])
 		}
 	}
